@@ -1,0 +1,7 @@
+SELECT data_filiacao, nome,  COUNT(nome) AS quantidade,
+  FORMAT_DATE("%d/%m/%y", data_filiacao) AS data_formatada,
+  EXTRACT(DAY FROM data_filiacao) AS dia_filiacao
+  FROM `basedosdados.br_tse_filiacao_partidaria.microdados` 
+GROUP BY data_filiacao, nome
+ORDER BY data_filiacao, nome
+LIMIT 1000

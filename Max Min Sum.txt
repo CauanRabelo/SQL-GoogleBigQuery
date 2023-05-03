@@ -1,0 +1,6 @@
+SELECT COUNT (DISTINCT cpf_cnpj_fornecedor) AS qtd_fornecedor,
+MAX(valor_despesa) AS vlr_max_despesa, 
+MIN(valor_despesa) AS vlr_min_despesa, 
+SUM(valor_despesa)  AS vlr_total_despesa,
+FROM `basedosdados.br_tse_eleicoes.despesas_candidato`
+WHERE cpf_candidato = '23790997587' AND ano = 2018 AND sigla_uf = 'BA' AND NOT nome_fornecedor = 'null';

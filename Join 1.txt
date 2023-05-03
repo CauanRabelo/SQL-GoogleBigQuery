@@ -1,0 +1,6 @@
+SELECT bens.id_candidato_bd,candidatos.nome, candidatos.cpf, candidatos.cargo, SUM(valor_item) AS bens_total
+FROM `basedosdados.br_tse_eleicoes.bens_candidato` AS bens JOIN `basedosdados.br_tse_eleicoes.candidatos` AS candidatos
+ON bens.id_candidato_bd = candidatos.id_candidato_bd
+WHERE bens.ano = 2018 AND bens.sigla_uf ='BA' AND candidatos.ano = 2018 AND candidatos.cargo = 'governador'
+GROUP BY bens.id_candidato_bd, candidatos.nome, candidatos.cpf, candidatos.cargo
+ORDER BY bens_total DESC;

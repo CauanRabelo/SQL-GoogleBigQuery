@@ -1,0 +1,6 @@
+SELECT nome_candidato, COUNT(DISTINCT cpf_cnpj_fornecedor) AS qtd_doadores,
+  ROUND(SUM(valor_despesa), 2) AS valor_total
+FROM `basedosdados.br_tse_eleicoes.despesas_candidato` 
+WHERE cargo = 'governador' AND sigla_uf = 'BA' AND ano = 2018
+GROUP BY nome_candidato
+ORDER BY valor_total DESC;

@@ -1,0 +1,32 @@
+/* por ordem alfabetica da sigla UF*/
+SELECT sigla_uf, COUNT(DISTINCT cpf_cnpj_doador) AS qtd_doadores
+FROM `basedosdados.br_tse_eleicoes.receitas_candidato`
+WHERE ano = 2018 AND cargo = 'governador'
+GROUP BY sigla_uf
+ORDER BY sigla_uf;
+
+/*por quantia de doadores em ordem crescente*/
+SELECT sigla_uf, COUNT(DISTINCT cpf_cnpj_doador) AS qtd_doadores
+FROM `basedosdados.br_tse_eleicoes.receitas_candidato`
+WHERE ano = 2018 AND cargo = 'governador'
+GROUP BY sigla_uf
+ORDER BY qtd_doadores;
+
+/*por nome do quantidade de doadores em ordem decrescente*/
+SELECT nome_candidato, COUNT(DISTINCT cpf_cnpj_doador) AS qtd_doadores
+FROM `basedosdados.br_tse_eleicoes.receitas_candidato`
+WHERE ano = 2018 AND cargo = 'governador' AND sigla_uf ='BA'
+GROUP BY nome_candidato
+HAVING qtd_doadores > 10
+ORDER BY qtd_doadores DESC;
+
+/*por valor da soma da receita decrescente*/
+SELECT nome_candidato, sigla_partido, COUNT(DISTINCT cpf_cnpj_doador) AS qtd_doadores,
+  ROUND(SUM(valor_receita), 2) AS soma_valor_receita,
+  CASE WHEN sigla_partido IN ('PT', 'PSOL', 'PCO') THEN 'esquerda'
+  ELSE 'outros'
+  END AS espectro_partidario
+FROM `basedosdados.br_tse_eleicoes.receitas_candidato`
+  WHERE ano = 2018 AND cargo = 'governador' AND sigla_uf ='BA'
+GROUP BY nome_candidato, sigla_partido
+ORDER BY soma_valor_receita DESC;
